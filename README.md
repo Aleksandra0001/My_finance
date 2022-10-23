@@ -5,7 +5,7 @@
 The first thing to do is to clone the repository:
 
 ```sh
-$ git clone https://github.com/Aleksandra0001/Python_web/tree/main/Homework_13_Django_tailwind/my_finance
+$ git clone https://github.com/Aleksandra0001/My_finance.git
 $ cd my_finance
 ```
 
