@@ -18,6 +18,7 @@ $ poetry shell
 
 Once `poetry` has finished downloading the dependencies:
 ```sh
+(env)$ cd my_finance
 (env)$ python manage.py runserver
 ```
 And navigate to `http://127.0.0.1:8000/.
