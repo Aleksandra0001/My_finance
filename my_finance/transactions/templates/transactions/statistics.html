@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+{% block header %}Statistics{% endblock %}
+{% block content %}
+<div class="w-full lg:w-5/6">
+<h1 class="text-2xl font-bold text-center uppercase">Transactions</h1>
+<form method="post" action="{% url 'transactions:filter_income' %}">
+{% csrf_token %}
+    <label for="inc_from_date">From</label>
+    <input class="border-2 rounded-lg py-2 px-6"  id="inc_from_date" type="date" name="inc_date_from">
+    <label for="inc_to_date">To</label>
+    <input class="border-2 rounded-lg py-2 px-6" id="inc_to_date" type="date" name="inc_date_to">
+    <button class="border-2 rounded-lg py-2 px-6" type="submit">Filter</button>
+</form>
+  <div class="bg-white shadow-md rounded my-6 scroll-auto">
+    <table class="min-w-max w-full table-auto">
+      <thead>
+        <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+          <th class="py-3 px-6 text-left">Transaction</th>
+          <th class="py-3 px-6 text-left">Amount</th>
+          <th class="py-3 px-6 text-center">Category</th>
+          <th class="py-3 px-6 text-center">Description</th>
+          <th class="py-3 px-6 text-center">Date</th>
+          <th class="py-3 px-6 text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="text-gray-600 text-sm font-light">
+        {% for income in incomes %}
+        <tr class="border-b border-gray-200 hover:bg-gray-100">
+          <td class="py-3 px-6 text-center">
+            <span class="bg-green-300 text-green-900 py-1 px-3 rounded-full text-xs">
+                Income
+            </span>
+          </td>
+          <td class="py-3 px-6 text-center whitespace-nowrap">
+            <div class="flex items-center">
+              <span class="font-medium">{{ income.amount}} UAH</span>
+            </div>
+          </td>
+          <td class="py-3 px-6 text-center">
+              <span>{{ income.category.title }}</span>
+          </td>
+          <td class="py-3 px-6 text-center">
+            <div class="flex items-center justify-center">
+              <span>{{ income.description}}</span>
+            </div>
+          </td>
+          <td class="py-3 px-6 text-center">
+            <div class="flex items-center justify-center">
+              <span>{{ income.created_at.date }}</span>
+            </div>
+          </td>
+          <td class="py-3 px-6 text-center">
+            <div class="flex item-center justify-center">
+              <div
+                class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
+              >
+              <form action="{% url 'transactions:delete_income' income.id %}" method="post">
+                  {% csrf_token %}
+                  <button class="w-full h-full">
+                      <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                  />
+                </svg>
+                  </button>
+              </form>
+              </div>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+<h2 class="text-2xl font-semibold leading-tight">Total income: {{ total_income }} UAH</h2>
+    <form method="post" action="{% url 'transactions:filter_expense' %}">
+{% csrf_token %}
+    <label for="exp_from_date">From</label>
+    <input class="border-2 rounded-lg py-2 px-6"  id="exp_from_date" type="date" name="exp_date_from">
+    <label for="exp_to_date">To</label>
+    <input class="border-2 rounded-lg py-2 px-6" id="exp_to_date" type="date" name="exp_date_to">
+    <button class="border-2 rounded-lg py-2 px-6" type="submit">Filter</button>
+</form>
+  <div class="bg-white shadow-md rounded my-6 scroll-auto">
+    <table class="min-w-max w-full table-auto">
+      <thead>
+        <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+          <th class="py-3 px-6 text-left">Transaction</th>
+          <th class="py-3 px-6 text-left">Amount</th>
+          <th class="py-3 px-6 text-center">Category</th>
+          <th class="py-3 px-6 text-center">Description</th>
+          <th class="py-3 px-6 text-center">Date</th>
+          <th class="py-3 px-6 text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="text-gray-600 text-sm font-light">
+        {% for expense in expenses %}
+        <tr class="border-b border-gray-200 hover:bg-gray-100">
+          <td class="py-3 px-6 text-center">
+            <span class="bg-red-300 text-red-900 py-1 px-3 rounded-full text-xs">
+                Expense
+            </span>
+          </td>
+          <td class="py-3 px-6 text-center whitespace-nowrap">
+            <div class="flex items-center">
+              <span class="font-medium">{{ expense.amount}} UAH</span>
+            </div>
+          </td>
+          <td class="py-3 px-6 text-center">
+{#            <div class="flex items-center">#}
+              <span>{{ expense.category.title }}</span>
+{#            </div>#}
+          </td>
+          <td class="py-3 px-6 text-center">
+            <div class="flex items-center justify-center">
+              <span>{{ expense.description}}</span>
+            </div>
+          </td>
+          <td class="py-3 px-6 text-center">
+            <div class="flex items-center justify-center">
+              <span>{{ expense.created_at.date }}</span>
+            </div>
+          </td>
+          <td class="py-3 px-6 text-center">
+            <div class="flex item-center justify-center">
+              <div
+                class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
+              >
+              <form action="{% url 'transactions:delete_expense' expense.id %}" method="post">
+                  {% csrf_token %}
+                  <button class="w-full h-full">
+                      <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                  />
+                </svg>
+                  </button>
+              </form>
+              </div>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+<h2 class="text-2xl font-semibold leading-tight">Total expense: {{ total_expenses }} UAH</h2>
+<h2 class="text-2xl font-semibold leading-tight text-right">Balance: {{ balance }} UAH</h2>
+</div>
+{% endblock %}

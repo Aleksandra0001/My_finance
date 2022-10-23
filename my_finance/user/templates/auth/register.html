@@ -1,0 +1,25 @@
+{% extends 'index.html' %}
+{% block content %}
+    <form action="{% url 'auth:register' %}" method="post">
+    {% csrf_token %}
+        <h3>Register</h3>
+
+        <label for="username">Username</label>
+        <input type="text" placeholder="Email or username" id="username" name="username" >
+
+        <label for="password">Password</label>
+        <input type="password" placeholder="Password" id="password" name="password" >
+        {% if messages %}
+            {% for message in messages %}
+                <p style="color:red; text-align: end; font-size: small">{{ message }}</p>
+            {% endfor %}
+         {% endif %}
+        <button>Register</button>
+
+            <div style="margin-top: 10px" >
+                <a href="{% url  'auth:login' %}">
+                    Already have an account?
+                </a>
+            </div>
+    </form>
+{% endblock %}

@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% block header %}Transactions{% endblock %}
+{% block content %}
+<div class="flex justify-around w-full ">
+  <div class="block p-6 rounded-lg shadow-lg bg-white max-w-md w-1/2">
+   <div class="flex justify-between">
+        <h2 class="mb-3 font-bold">INCOMES</h2>
+      {% if messages and amount == '' %}
+        {% for message in messages %}
+            <p style="color:red; text-align: end; font-size: small">{{ message }}</p>
+        {% endfor %}
+     {% endif %}
+   </div>
+    <form method="POST" action="{% url 'transactions:income' %}">{% csrf_token %}
+      <div class="grid grid-cols-2 gap-4">
+        <div class="form-group mb-6">
+          <label for="amount" class="text-sm">Amount</label>
+          <input
+            type="number"
+            name="amount"
+            class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding
+            border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
+            focus:border-blue-600 focus:outline-none"
+            id="amount"
+            aria-describedby="emailHelp123"
+            placeholder="0"
+          />
+        </div>
+        <div class="form-group mb-6">
+          <label for="date" class="text-sm">Date</label>
+          <input
+            type="date"
+            class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+            id="date"
+            aria-describedby="emailHelp124"
+            placeholder="Last name"
+            name="created"
+          />
+        </div>
+      </div>
+      <div class="form-group mb-6">
+        <label
+          for="desc_income"
+          class="form-label inline-block mb-2 text-gray-700"
+          >Description</label
+        >
+        <textarea
+          class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none resize-none"
+          id="desc_income"
+          rows="3"
+          placeholder="Comment"
+          name="description"
+        ></textarea>
+      </div>
+      <div class="form-group mb-6">
+        <select
+          class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+          aria-label="Default select example"
+          name="category"
+        >
+          <option value="OTHER" selected>Open this select menu</option>
+          <option value="SALARY BONUS">Salary Bonus</option>
+          <option value="PRESENT">Present</option>
+          <option value="INVESTMENT">Investment</option>
+          <option value="RENT">Rent</option>
+          <option value="SAVINGS">Savings</option>
+          <option value="INTEREST">Interests</option>
+          <option value="SALES">Sales</option>
+        </select>
+      </div>
+      <div class="form-group form-check text-center mb-6"></div>
+      <button
+        type="submit"
+        class="w-full px-6 py-2.5 bg-secondary text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150ease-in-out"
+      >
+        Add Income
+      </button>
+    </form>
+  </div>
+
+  <div class="block p-6 rounded-lg shadow-lg bg-white max-w-md 1/2">
+    <div class="flex justify-between">
+        <h2 class="mb-3 font-bold">EXPENSES</h2>
+      {% if messages and amount_exp == '' %}
+        {% for message in messages %}
+            <p style="color:red; text-align: end; font-size: small">{{ message }}</p>
+        {% endfor %}
+     {% endif %}
+   </div>
+    <form method="POST" action="{% url 'transactions:expenses' %}">
+        {% csrf_token %}
+      <div class="grid grid-cols-2 gap-4">
+        <div class="form-group mb-6">
+          <label for="amount_exp" class="text-sm">Amount</label>
+          <input
+            type="number"
+            class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+            id="amount_exp"
+            aria-describedby="emailHelp123"
+            placeholder="0"
+            name="amount_exp"
+          />
+        </div>
+        <div class="form-group mb-6">
+          <label for="date_exp" class="text-sm">Date</label>
+          <input
+            type="date"
+            class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+            id="date_exp"
+            aria-describedby="emailHelp124"
+            placeholder="Last name"
+            name="created_exp"
+          />
+        </div>
+      </div>
+      <div class="form-group mb-6">
+        <label for="desc_exp" class="form-label inline-block mb-2 text-gray-700"
+          >Description</label
+        >
+        <textarea
+          class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none resize-none"
+          id="desc_exp"
+          rows="3"
+          placeholder="Comment"
+          name="description_exp"
+        ></textarea>
+      </div>
+      <div class="form-group mb-6">
+        <select
+          class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+          aria-label="Default select example"
+            name="category_exp"
+        >
+          <option value="OTHER" selected>Open this select menu</option>
+          <option value="FOOD">Food</option>
+          <option value="CAR">Car</option>
+          <option value="PRESENT">Present</option>
+          <option value="CLOTHES">Clothes</option>
+          <option value="TRAVEL">Travel</option>
+          <option value="ENTERTAINMENT">Entertainment</option>
+          <option value="HEALTH">Health</option>
+          <option value="HOBBY">Hobby</option>
+        </select>
+      </div>
+      <div class="form-group form-check text-center mb-6"></div>
+      <button
+        type="submit"
+        class="w-full px-6 py-2.5 bg-accent text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150ease-in-out"
+      >
+        Add Expense
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}

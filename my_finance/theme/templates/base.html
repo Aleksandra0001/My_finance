@@ -1,0 +1,169 @@
+<!--{% load tailwind_tags %}-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--  <script src="https://cdn.tailwindcss.com"></script>-->
+<!--       <script>-->
+<!--    tailwind.config = {-->
+<!--      theme: {-->
+<!--        extend: {-->
+<!--          colors: {-->
+<!--                'primary': '#080710',-->
+<!--                'secondary': '#1845ad',-->
+<!--                'accent': '#f09819',-->
+<!--            }-->
+<!--        }-->
+<!--      }-->
+<!--    }-->
+<!--  </script>-->
+    <title>My Finance</title>
+    {% tailwind_css %}
+  </head>
+  <body>
+    <div class="min-h-full">
+      <!--    NAVIGATION-->
+      <nav class="bg-primary">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="flex h-16 items-center justify-between">
+            <div class="flex items-center">
+              <div class="flex-shrink-0">
+                <img
+                  class="h-8 w-8"
+                  src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                  alt="Your Company"
+                />
+              </div>
+              <div class="hidden md:block">
+                <div class="ml-10 flex items-baseline space-x-4">
+                  <a
+                    href="{% url 'transactions:index' %}"
+                    class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
+                    aria-current="page"
+                    >Transactions</a
+                  >
+                  <a
+                    href="{% url 'transactions:statistics' %}"
+                    class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    >Statistics</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="hidden md:block">
+              <div class="ml-4 flex items-center md:ml-6">
+                  <a href="{% url 'auth:logout' %}">
+                      {% csrf_token %}
+                      <button
+                  type="button"
+                  class="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                >
+                  <span class="sr-only">Log out</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-6 h-6"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"
+                    />
+                  </svg>
+                </button>
+                  </a>
+                <div class="relative ml-3">
+                  <div>
+                    <img
+                      class="h-8 w-8 rounded-full"
+                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                      alt=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="-mr-2 flex md:hidden">
+              <!-- Mobile menu button -->
+              <button
+                type="button"
+                class="inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                aria-controls="mobile-menu"
+                aria-expanded="false"
+              >
+                <span class="sr-only">Open main menu</span>
+
+                <svg
+                  class="block h-6 w-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  />
+                </svg>
+
+                <svg
+                  class="hidden h-6 w-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!--    HEADER-->
+
+      <header class="bg-white shadow">
+        <div class="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
+          <h1 class="text-3xl font-bold tracking-tight text-gray-900">
+            {% block header %} {% endblock %}
+          </h1>
+        </div>
+      </header>
+
+      <!--    DASHBOARD-->
+      <main>
+        <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+          <div class="px-4 py-6 sm:px-0">
+            <div
+              class="h-full rounded-lg border-4 border-dashed border-gray-200 flex items-center bg-gray-100"
+            >
+              <div class="overflow-x-auto w-full h-full">
+                <div
+                  class="flex items-center justify-center font-sans overflow-hidden p-5"
+                >
+                  {% block content %} {% endblock %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8"></div>
+      </main>
+    </div>
+  </body>
+</html>
